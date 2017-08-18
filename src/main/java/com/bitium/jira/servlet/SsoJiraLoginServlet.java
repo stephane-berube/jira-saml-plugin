@@ -26,6 +26,7 @@ import com.bitium.jira.config.SAMLJiraConfig;
 import com.bitium.saml.servlet.SsoLoginServlet;
 
 
+@SuppressWarnings("serial")
 public class SsoJiraLoginServlet extends SsoLoginServlet {
 
 	protected void authenticateUserAndLogin(HttpServletRequest request,

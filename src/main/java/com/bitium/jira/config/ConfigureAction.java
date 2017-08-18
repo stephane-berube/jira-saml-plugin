@@ -8,6 +8,8 @@ import java.util.Collection;
 import com.atlassian.crowd.embedded.api.Group;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.security.groups.GroupManager;
+import com.atlassian.jira.util.I18nHelper;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.atlassian.jira.web.action.JiraWebActionSupport;
@@ -127,6 +129,7 @@ public class ConfigureAction extends JiraWebActionSupport {
 		this.success = success;
 	}
 
+	@SuppressWarnings("deprecation")
 	public ArrayList<String> getExistingGroups() {
         GroupManager groupManager = ComponentAccessor.getGroupManager();
         Collection<Group> groupObjects = groupManager.getAllGroups();
@@ -155,16 +158,18 @@ public class ConfigureAction extends JiraWebActionSupport {
 		if (getSubmitAction() == null || getSubmitAction().equals("")) {
 			return;
 		}
+		
+		final I18nHelper i18n = this; 
 		if (!isSystemAdministrator()) {
-			addErrorMessage(getText("saml2Plugin.admin.notAdministrator"));
+			addErrorMessage(i18n.getText("saml2Plugin.admin.notAdministrator"));
 		}
 		if (StringUtils.isBlank(getLoginUrl())) {
-			addErrorMessage(getText("saml2Plugin.admin.loginUrlEmpty"));
+			addErrorMessage(i18n.getText("saml2Plugin.admin.loginUrlEmpty"));
 		} else {
 			try {
 				new URL(getLoginUrl());
 			} catch (MalformedURLException e) {
-				addErrorMessage(getText("saml2Plugin.admin.loginUrlInvalid"));
+				addErrorMessage(i18n.getText("saml2Plugin.admin.loginUrlInvalid"));
 			}
 		}
 		if (StringUtils.isBlank(getLogoutUrl())) {
@@ -173,22 +178,22 @@ public class ConfigureAction extends JiraWebActionSupport {
 			try {
 				new URL(getLogoutUrl());
 			} catch (MalformedURLException e) {
-				addErrorMessage(getText("saml2Plugin.admin.logoutUrlInvalid"));
+				addErrorMessage(i18n.getText("saml2Plugin.admin.logoutUrlInvalid"));
 			}
 		}
 		if (StringUtils.isBlank(getEntityId())) {
-			addErrorMessage(getText("saml2Plugin.admin.entityIdEmpty"));
+			addErrorMessage(i18n.getText("saml2Plugin.admin.entityIdEmpty"));
 		}
 		if (StringUtils.isBlank(getUidAttribute())) {
-			addErrorMessage(getText("saml2Plugin.admin.uidAttributeEmpty"));
+			addErrorMessage(i18n.getText("saml2Plugin.admin.uidAttributeEmpty"));
 		}
 		if (StringUtils.isBlank(getX509Certificate())) {
-			addErrorMessage(getText("saml2Plugin.admin.x509CertificateEmpty"));
+			addErrorMessage(i18n.getText("saml2Plugin.admin.x509CertificateEmpty"));
 		} else {
 			try {
 				X509Utils.generateX509Certificate(getX509Certificate());
 			} catch (Exception e) {
-				addErrorMessage(getText("saml2Plugin.admin.x509CertificateInvalid"));
+				addErrorMessage(i18n.getText("saml2Plugin.admin.x509CertificateInvalid"));
 			}
 		}
 		if (StringUtils.isBlank(getIdpRequired())) {
@@ -203,7 +208,7 @@ public class ConfigureAction extends JiraWebActionSupport {
 		}
 		
 		if(StringUtils.isBlank(getMaxAuthenticationAge()) || (!StringUtils.isNumeric(getMaxAuthenticationAge()))){
-			addErrorMessage(getText("saml2Plugin.admin.maxAuthenticationAgeInvalid"));
+			addErrorMessage(i18n.getText("saml2Plugin.admin.maxAuthenticationAgeInvalid"));
 		}
 
 	}
