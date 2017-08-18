@@ -21,14 +21,15 @@ public class ConfigureAction extends JiraWebActionSupport {
 	private String entityId;
 	private String uidAttribute;
 	private String autoCreateUser;
-    private String defaultAutoCreateUserGroup;
-	private String x509Certificate;
+   private String defaultAutoCreateUserGroup;
+	private String autoCreateGroupFilter;
+   private String x509Certificate;
 	private String idpRequired;
 	private String maxAuthenticationAge;
 	private String success = "";
 	private String submitAction;
 	private ArrayList<String> existingGroups;
-
+  
 	private SAMLJiraConfig saml2Config;
 
 	public void setSaml2Config(SAMLJiraConfig saml2Config) {
@@ -92,6 +93,14 @@ public class ConfigureAction extends JiraWebActionSupport {
 
     public void setDefaultAutoCreateUserGroup(String defaultAutoCreateUserGroup) {
         this.defaultAutoCreateUserGroup = defaultAutoCreateUserGroup;
+    }
+    
+    public String getAutoCreateGroupFilter() {
+       return autoCreateGroupFilter;
+    }
+    
+    public void setAutoCreateGroupFilter(String autoCreateGroupFilter) {
+       this.autoCreateGroupFilter = autoCreateGroupFilter;
     }
 
     public String getLogoutUrl() {
@@ -238,6 +247,7 @@ public class ConfigureAction extends JiraWebActionSupport {
 				defaultAutocreateUserGroup = SAMLJiraConfig.DEFAULT_AUTOCREATE_USER_GROUP;
 			}
 			setDefaultAutoCreateUserGroup(defaultAutocreateUserGroup);
+			setAutoCreateGroupFilter(saml2Config.getAutoCreateGroupFilter()); 
 			return "success";
 		}
 		saml2Config.setLoginUrl(getLoginUrl());
@@ -247,8 +257,9 @@ public class ConfigureAction extends JiraWebActionSupport {
 		saml2Config.setX509Certificate(getX509Certificate());
 		saml2Config.setIdpRequired(getIdpRequired());
 		saml2Config.setAutoCreateUser(getAutoCreateUser());
-        saml2Config.setAutoCreateUserDefaultGroup(getDefaultAutoCreateUserGroup());
-        saml2Config.setMaxAuthenticationAge(Long.parseLong(getMaxAuthenticationAge()));
+      saml2Config.setAutoCreateUserDefaultGroup(getDefaultAutoCreateUserGroup());
+      saml2Config.setAutoCreateGroupFilter(getAutoCreateGroupFilter());
+      saml2Config.setMaxAuthenticationAge(Long.parseLong(getMaxAuthenticationAge()));
         
 		setSuccess("success");
 		return "success";
