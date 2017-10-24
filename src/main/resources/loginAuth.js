@@ -27,6 +27,10 @@ AJS.$(function() {
                 AJS.$('<div class="field-group"><a class="aui-button aui-style aui-button-primary" href="' + AJS.contextPath() + '/plugins/servlet/saml/auth" style="margin-left:100px;margin-top:5px;">Use Corporate login</a></div>').insertBefore(AJS.$("#gadget-0"));
             }
 
+            // keep track of whether we allow Forced SSO Login, regardless of
+            // user prefs.  (this is needed to prevent loops if SSO login fails)
+            var forcedSsoLoginAllowed = true;
+            
             var query = location.search.substr(1);
             query.split("&").forEach(function(part) {
                 var item = part.split("=");
@@ -38,6 +42,10 @@ AJS.$(function() {
                     loginForm.show();
                     var message = '<div class="aui-message closeable error">' + errorKeys[item[1]] + '</div>';
                     AJS.$(message).insertBefore(loginForm);
+                    
+                    // there's a SAML error, so don't keep trying to login
+                    forcedSsoLoginAllowed = false;
+                    console.log("disabling forced login");
                 }
             });
 
@@ -62,7 +70,7 @@ AJS.$(function() {
                 type: "GET",
                 error: function() {},
                 success: function(response) {
-                    if (response == "true") {
+                    if ( response == "true" && forcedSsoLoginAllowed ) {
                         // AJS.$('<img src="download/resources/com.bitium.confluence.SAML2Plugin/images/progress.png"/>').insertBefore(AJS.$(".aui.login-form-container"));
                         AJS.$('<p>Please wait while we redirect you to your company log in page</p>').insertBefore(loginForm);
                         window.location.href = AJS.contextPath() + '/plugins/servlet/saml/auth';
