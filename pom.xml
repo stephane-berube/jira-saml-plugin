@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bitium.jira</groupId>
     <artifactId>SAML2PluginJira</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <name>SAML 2.0 Single Sign-On for Jira</name>
     <description>Easily configure Jira to support SAML 2.0</description>
     <packaging>atlassian-plugin</packaging>
@@ -18,6 +18,28 @@
                 <exclusion>
                     <groupId>xerces</groupId>
                     <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+<!-- 
+ -->
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-core</artifactId>
+            <version>${jira.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                	<artifactId>xml-apis</artifactId>
+                	<groupId>xml-apis</groupId>
+                </exclusion>
+                <exclusion>
+                	<artifactId>xml-apis-ext</artifactId>
+                	<groupId>xml-apis</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
