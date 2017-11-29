@@ -3,12 +3,10 @@ package com.bitium.jira.servlet;
 import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.TreeSet;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.ArrayUtils;
-
 import com.atlassian.crowd.embedded.api.Group;
 import com.atlassian.crowd.exception.GroupNotFoundException;
 import com.atlassian.crowd.exception.OperationFailedException;
@@ -16,6 +14,7 @@ import com.atlassian.crowd.exception.OperationNotPermittedException;
 import com.atlassian.crowd.exception.UserNotFoundException;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.security.groups.GroupManager;
+import com.atlassian.jira.security.login.LoginManager;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.user.UserDetails;
 import com.atlassian.jira.user.util.UserManager;
@@ -47,7 +46,11 @@ public class SsoJiraLoginServlet extends SsoLoginServlet {
 
 		    if(userObject != null && userObject instanceof ApplicationUser) {
 		    	Boolean result = authoriseUserAndEstablishSession((DefaultAuthenticator) authenticator, userObject, request, response);
-
+		    	
+		    	LoginManager loginManager = ComponentAccessor.getComponentOfType(LoginManager.class);
+		    	if (loginManager != null) {
+		    	  loginManager.onLoginAttempt(request, username, result);
+		    	}
 				if (result) {
 					redirectToSuccessfulAuthLandingPage(request, response);
 					return;
