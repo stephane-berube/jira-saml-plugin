@@ -4,7 +4,7 @@
   <plugin-info>
     <description>${project.description}</description>
     <version>${project.version}</version>
-    <vendor name="Bitium" url="http://www.bitium.com"/>
+    <vendor name="MacEwan University / Bitium" url="https://github.com/cbanack/jira-saml-plugin"/>
     <param name="plugin-icon">images/pluginIcon.png</param>
     <param name="plugin-logo">images/pluginLogo.png</param>
     <param name="configure.url">/secure/admin/saml2pluginjira.configure.jspa</param>

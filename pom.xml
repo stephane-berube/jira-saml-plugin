@@ -165,6 +165,8 @@
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
+                    <enableQuickReload>true</enableQuickReload>
+                    <enableFastdev>false</enableFastdev>
                 </configuration>
             </plugin>
             <plugin>
@@ -177,10 +179,16 @@
         </plugins>
     </build>
     <properties>
-        <jira.version>7.0.8</jira.version>
-        <amps.version>6.2.1</amps.version>
+        <jira.version>7.7.1</jira.version>
+        <amps.version>6.3.15</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
-        <!-- TestKit version 5.x for JIRA 5.x, 6.x for JIRA 6.x -->
         <testkit.version>6.3.11</testkit.version>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
     </properties>
+    <url>https://github.com/cbanack/jira-saml-plugin</url>
+    <organization>
+       <name>MacEwan University / Bitium</name>
+       <url>https://github.com/cbanack/jira-saml-plugin</url>
+    </organization>
 </project>
