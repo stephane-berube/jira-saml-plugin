@@ -19,6 +19,10 @@
                     <groupId>xerces</groupId>
                     <artifactId>xercesImpl</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>jndi</groupId>
+                    <artifactId>jndi</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -38,6 +42,10 @@
                 <exclusion>
                 	<artifactId>xml-apis-ext</artifactId>
                 	<groupId>xml-apis</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jndi</groupId>
+                    <artifactId>jndi</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
