@@ -16,6 +16,7 @@
   <web-resource key="loginAuth-plugin" name="Login auth plugin">
     <resource name="loginAuth.js" type="download" location="loginAuth.js"/>
     <context>atl.general</context>
+    <context>customerportal</context>
   </web-resource>
 
   <web-resource key="admin-resources" name="Admin web resources">
